@@ -1,0 +1,26 @@
+#!/bin/bash
+class=$(cat classes.txt)
+for c in $class; do
+	lower=$(echo $c | awk '{print tolower($0)}')
+	upper=$(echo $c | awk '{print toupper($0)}')
+	h=${lower}.h
+	cc=${lower}.cc
+	echo "#ifndef __${upper}__H__" > $h
+	echo "#define__${upper}__H__" >> $h
+	echo >> ${lower}.h
+	echo "class $c : public XXX {" >> $h
+	echo >> $h
+	echo "    public:" >> $h
+	echo >> $h
+	echo "}" >> $h 
+	echo >> $h
+	echo >> $h
+	echo "#endif" >> $h
+	echo "#include \"${lower}.h\"" > $cc
+	echo "using namespace std;" >> $cc
+	echo >> $cc
+	echo "$c::(){" >> $cc
+	echo >> $cc
+	echo "}" >> $cc
+	echo >> $cc
+done
